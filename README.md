@@ -14,10 +14,36 @@ Feel free to browse the code and use it in your own project if you want. Just ke
 3. Open with Visual Studio and set ECS_Engine as startup project
 4. Build and run the project
 
-## Controls
+
+# Branches
+
+## main
+Just the engine and a test scene.
+### Controls
 WASD: Move  
 QE: Move up/down  
 Left sift, left ctrl: Increase/Reduce Speed  
 ESC: Quit the game
   
 You can collect the flying spheres.
+
+
+## physics
+Contains the demo I made for a physics course. 3d cube collisions, no external physics library in use. Demo scene with some physics objects.
+### Controls
+WASD: Move  
+QE: Move up/down  
+Left sift, left ctrl: Increase/Reduce Speed  
+ESC: Quit the game  
+  
+You can collect the flying spheres.
+
+
+## goldrush
+A minigame I made for AI course. Goal is to destroy all enemy towers. AI difficulty is randomized each game.
+### Controls
+Arrow keys: Move the cursor on the map  
+1: Buy a gold collector  
+2: Buy an attack drone  
+3: Buy a tower  
+ESC: Quit the game  
