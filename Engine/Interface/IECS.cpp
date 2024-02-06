@@ -7,14 +7,18 @@
 #include <Engine/ECS/Components/TransformComponent.h>
 #include <Engine/OpenGL/ECS/Components/CameraComponent.h>
 #include <Engine/ECS/Components/MovementComponent.h>
+#include <Engine/ECS/Components/BoxColliderComponent.h>
+#include <Engine/ECS/Components/RigidbodyComponent.h>
 
 #include <Engine/OpenGL/ECS/Entities/CameraEntity.h>
+#include <Engine/ECS/Entities/RigidbodyEntity.h>
 
 #include <Engine/OpenGL/ECS/Systems/RenderSystem.h>
 #include <Engine/OpenGL/ECS/Systems/CameraControllerSystem.h>
 #include <Engine/OpenGL/ECS/Systems/MeshLoaderSystem.h>
 #include <Engine/OpenGL/ECS/Systems/TextureLoaderSystem.h>
 #include <Engine/OpenGL/ECS/Systems/ShaderLoaderSystem.h>
+#include <Engine/ECS/Systems/PhysicsSystem.h>
 
 
 #include <Engine/Interface/WindowManager.h>
@@ -30,6 +34,7 @@ namespace IECS
 		MeshLoaderSystem* WorldMeshLoaderSystem;
 		TextureLoaderSystem* WorldTextureLoaderSystem;
 		ShaderLoaderSystem* WorldShaderLoaderSystem;
+		PhysicsSystem* WorldPhysicsSystem;
 	}
 
 	void Init()
@@ -43,6 +48,8 @@ namespace IECS
 		WorldEntityManager->CreateComponentType<MeshComponent>();
 		WorldEntityManager->CreateComponentType<CameraComponent>();
 		WorldEntityManager->CreateComponentType<MovementComponent>();
+		WorldEntityManager->CreateComponentType<BoxColliderComponent>();
+		WorldEntityManager->CreateComponentType<RigidbodyComponent>();
 
 		//Create engine WorldCameraControllerSystem
 		WorldEntityManager->CreateEntityTypeStorage<CameraEntity>();
@@ -77,6 +84,23 @@ namespace IECS
 		WorldRenderSystem->AddRequiredComponentType<TransformComponent>();
 		WorldRenderSystem->AddRequiredComponentType<MeshComponent>();
 		WorldRenderSystem->AddRequiredComponentType<MaterialComponent>();
+
+
+		
+
+		WorldPhysicsSystem = new PhysicsSystem(WorldEntityManager);
+		WorldSystemsManager->AddSystem(WorldPhysicsSystem);
+		WorldPhysicsSystem->AddRequiredComponentType<TransformComponent>();
+		WorldPhysicsSystem->AddRequiredComponentType<BoxColliderComponent>();
+		WorldPhysicsSystem->AddRequiredComponentType<RigidbodyComponent>();
+
+		//Create engine PhysicsSystem
+		WorldEntityManager->CreateEntityTypeStorage<RigidbodyEntity>();
+		WorldPhysicsSystem->AddEntityTypeIfCompatible<RigidbodyEntity>();
+		WorldRenderSystem->AddEntityTypeIfCompatible<RigidbodyEntity>();
+
+
+
 	}
 
 	void Destroy()

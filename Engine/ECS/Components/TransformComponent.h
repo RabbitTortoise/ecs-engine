@@ -19,7 +19,6 @@ public:
 		Position(c.Position),
 		EulerAngles(c.EulerAngles),
 		Orientation(c.Orientation),
-		Scale(c.Scale),
 		UseQuaternion(c.UseQuaternion),
 		Component(static_cast<Component>(c)) 
 	{}
