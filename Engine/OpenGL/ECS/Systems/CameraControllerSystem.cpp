@@ -189,3 +189,9 @@ CameraEntity* CameraControllerSystem::GetMainCamera()
 {
 	return WorldEntityManager->GetEntity<CameraEntity>(MainCameraID, CameraEntityTypeID);
 }
+
+void CameraControllerSystem::SetPitchYaw(float pitch, float yaw)
+{
+	Pitch = pitch;
+	Yaw = yaw;
+}

@@ -51,7 +51,22 @@ public:
 		delete IndexUsage;
 	}
 
-	Entity* GetEntity(int id)
+	//Entity* GetEntity(int id)
+	//{
+	//	if (id < static_cast<int>(Entities->size()))
+	//	{
+	//		if (IndexUsage->at(id))
+	//		{
+	//			if (!Entities->at(id).GetEnabled())
+	//			{
+	//				return &Entities->at(id);
+	//			}
+	//		}
+	//	}
+	//	return nullptr;
+	//}
+
+	T* GetEntity(int id)
 	{
 		if (id < static_cast<int>(Entities->size()))
 		{

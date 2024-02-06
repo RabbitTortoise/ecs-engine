@@ -94,14 +94,16 @@ private:
         float prevTime = (float)glfwGetTime();
         while (!glfwWindowShouldClose(ApplicationWindowManager->GetGLFWWindow())) 
         {
+            double curTime = (double)glfwGetTime();
+            // Poll other window events.
+            glfwPollEvents();
+            glfwSetTime(curTime); //Quick fix for the window movement time skip bug
+
             // Compute application frame time (delta time) and update application
-            float curTime = (float)glfwGetTime();
+            
             float deltaTime = curTime - prevTime;
             prevTime = curTime;
             //std::cout << "DeltaTime: " << deltaTime << std::endl;
-
-            // Poll other window events.
-            glfwPollEvents();
 
             //Collision Update
             WorldSystemsManager->UpdateCollisionSystems(deltaTime);

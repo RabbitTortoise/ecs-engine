@@ -9,7 +9,7 @@ class MeshComponent;
 
 class TestScript : public BaseScript
 {
-	ADDSCRIPT(TestScript);
+	//ADDSCRIPT(TestScript);
 
 public:
 	TestScript();

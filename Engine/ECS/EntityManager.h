@@ -174,6 +174,38 @@ public:
 	template <typename T>
 	T* GetEntity(int id, int entityTypeID)
 	{
+		if (id < 0 || entityTypeID < 0)
+		{
+			return nullptr;
+		}
+		//Console::Log("GetEntity, ID,Type: " + std::to_std::string(id) + "," + std::to_std::string(id));
+		for (int i = 0; i < EntityStorages.size(); i++)
+		{
+			if (EntityStorages.at(i)->GetEntityType() == entityTypeID)
+			{
+				EntityTypeStorage<T>* s = static_cast<EntityTypeStorage<T>*>(EntityStorages.at(i));
+				T* cT = static_cast<T*>(s->GetEntity(id));
+				//Console::Log("Found Entity with ID: " + std::to_std::string(cT->GetID()));
+				return cT;
+			}
+		}
+		return nullptr;
+	}
+
+	/// <summary>
+	/// Gets a entity of given type and ID. Returns nullptr if Entity was not found.
+	/// </summary>
+	/// <typeparam name="T">Entity type</typeparam>
+	/// <param name="id">ID of the Entity</param>
+	/// <returns>Pointer to the Entity if it exists</returns>
+	template <typename T>
+	T* GetEntity(int id)
+	{
+		int entityTypeID = GetEntityTypeId<T>();
+		if (id < 0 || entityTypeID < 0)
+		{
+			return nullptr;
+		}
 		//Console::Log("GetEntity, ID,Type: " + std::to_std::string(id) + "," + std::to_std::string(id));
 		for (int i = 0; i < EntityStorages.size(); i++)
 		{
@@ -205,6 +237,35 @@ public:
 		return nullptr;
 	}
 
+	template <typename T>
+	std::vector<T>* GetEntityVector()
+	{
+		int typeID = GetEntityTypeId<T>();
+		for (int i = 0; i < EntityStorages.size(); i++)
+		{
+			if (EntityStorages.at(i)->GetEntityType() == typeID)
+			{
+				EntityTypeStorage<T>* s = static_cast<EntityTypeStorage<T>*>(EntityStorages.at(i));
+				return s->GetEntityVector();
+			}
+		}
+		return nullptr;
+	}
+
+	template <typename T>
+	IEntityStorage* GetIEntityStorage()
+	{
+		int typeID = GetEntityTypeId<T>();
+		for (int i = 0; i < EntityStorages.size(); i++)
+		{
+			if (EntityStorages.at(i)->GetEntityType() == typeID)
+			{
+				return EntityStorages.at(i);
+			}
+		}
+		return nullptr;
+	}
+
 	IEntityStorage* GetIEntityStorage(int typeID)
 	{
 		for (int i = 0; i < EntityStorages.size(); i++)
@@ -217,11 +278,41 @@ public:
 		return nullptr;
 	}
 
+	template <typename T>
+	EntityTypeStorage<T>* GetCastedEntityStorage()
+	{
+		int typeID = GetEntityTypeId<T>();
+		for (int i = 0; i < EntityStorages.size(); i++)
+		{
+			if (EntityStorages.at(i)->GetEntityType() == typeID)
+			{
+				return static_cast<EntityTypeStorage<T>*>(EntityStorages.at(i));
+			}
+		}
+		return nullptr;
+	}
 
+	template <typename T>
+	EntityTypeStorage<T>* CastEntityStorage(IEntityStorage* entityTypeStorage)
+	{
+		return static_cast<EntityTypeStorage<T>*>(entityTypeStorage);
+	}
+
+	
 	void MarkEntityForDeletion(int entityID, int EntityType)
 	{
 		EntitiesToDelete.push_back(std::make_pair(entityID, EntityType));
 	}
+
+	template <typename T>
+	void MarkEntityForDeletion(int entityID)
+	{
+		int entityTypeID = GetEntityTypeId<T>();
+		EntitiesToDelete.push_back(std::make_pair(entityID, entityTypeID));
+	}
+
+
+	
 
 	void DeleteMarkedEntities()
 	{

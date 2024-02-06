@@ -17,7 +17,7 @@ class StaticSceneEntity;
 
 class CollectingGame : public BaseScript
 {
-	ADDSCRIPT(CollectingGame);
+	//ADDSCRIPT(CollectingGame);
 
 public:
 	CollectingGame();

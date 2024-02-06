@@ -21,6 +21,8 @@ public:
 	void UpdateCameraProjectionMatrix(CameraEntity* camera, int width, int height, bool ortho = true);
 	void SetMainCamera(int cameraID);
 	CameraEntity* GetMainCamera();
+	void SetPitchYaw(float pitch, float yaw);
+
 	
 	inline static const std::string SystemName = "CameraControllerSystem";
 	inline static const System::SystemType SystemType = System::SystemType::System;
