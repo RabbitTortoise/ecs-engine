@@ -1,3 +1,6 @@
+# New version available!
+Check out the new project: https://github.com/RabbitTortoise/encosy-engine
+
 # What is this?
 
 This is the December 2022 version of the game engine I've been working on as part of my studies. I have used the project to explore Entity Component System -architecture and data-oriented programming in game engine development. This repository is intended to be a snapshot of my skills at the time. The project solution can be generated with CMake and it should compile fine with Visual Studio 2022 using MSVC v143. I replaced all the textures with 1-pixel versions as I’m not sure if I can include them in a public repo. This playlist has videos with PBR textures in use: https://youtube.com/playlist?list=PL7UiajzfESH-z_U4DIVp0npQNs3LKtoZS&si=aafztwpvyDlTOWAs .
